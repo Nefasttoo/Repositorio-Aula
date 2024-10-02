@@ -1,0 +1,33 @@
+/* id = # class .*/
+
+#tx_titulo {
+    background-color: #e21f1f;
+    text-align: center;
+}
+.basico {
+    font-family: 'Courier New', Courier, monospace;
+    color: aqua;
+    font-weight: bold;
+    font-size: 1.8em;
+}
+
+.inermediario {
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(201, 85, 181);
+    font-weight: bold;
+    font-size: 1.8em;
+}
+.avancado {
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(85, 201, 110);
+    font-weight: bold;
+    font-size: 1.8em;
+}
+.destaque {
+    text-shadow: 5px;
+}
+
+p {
+    text-decoration-color: blue;
+    font-size: 1.8em;
+}

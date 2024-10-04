@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Receitas</title>
+
+    <style>
+        /* Estilo básico para corpo da página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            /* Removido overflow hidden para permitir rolagem quando necessário */
+        }
+        
+        /* Container com rolagem */
+        .scroll-container {
+            overflow-y: auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilo do header da página */
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Botão de menu que abre o drawer */
+        .menu-button {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            border-radius: 6px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 40;
+        }
+
+        /* Estilo do menu lateral (drawer) */
+        .drawer {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: #333;
+            color: white;
+            transition: 0.3s;
+            padding-top: 60px;
+            z-index: 30;
+            overflow-y: auto; /* Habilita rolagem vertical no menu */
+        }
+
+        /* Estilo dos links dentro do menu */
+        .drawer a {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            text-decoration: none;
+            color: #333;
+            background-color: white;
+            border-radius: 6px;
+            margin: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        /* Imagens de ícone ao lado dos itens do menu */
+        .drawer img {
+            width: 48px;
+            height: 48px;
+            margin-right: 15px;
+        }
+
+        /* Estilo dos links ao passar o mouse */
+        .drawer a:hover {
+            background-color: #f1f1f1;
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilo da área de conteúdo principal */
+        .content {
+            max-width: 800px;
+            margin: 2em auto;
+            padding: 1em;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+            z-index: 1;
+        }
+
+        h1 {
+            margin: 0;
+            padding-right: 10px; /* Espaço entre o título e o box */
+        }
+
+        .gif-container {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            background-color: white; /* Cor de fundo do box */
+            border-radius: 50%; /* Bordas arredondadas */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra ao redor do box */
+        }
+
+        .gif-container img {
+            width: 30px; /* Tamanho do GIF */
+            height: auto;
+            border-radius: 50%;
+        }
+
+
+        /* Estilo do título das receitas */
+        h2 {
+            margin-top: 0;
+        }
+
+        /* Remove a formatação padrão das listas */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        /* Estilo dos itens da lista */
+        li {
+            margin: 0.5em 0;
+            padding: 10px;
+            background: #e2e2e2;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Coloca o header e o conteúdo dentro do container com rolagem -->
+    <div class="scroll-container">
+        <!-- Cabeçalho da página com título e botão para abrir o menu -->
+        <header>
+            <h1>Receitas Deliciosas</h1>
+            <!-- Container do GIF -->
+            <div class="gif-container">
+                <img src="imagem/ic_chef.gif" alt="Gif de culinária">
+            </div>
+        </header>
+
+        <!-- Menu lateral (drawer) -->
+        <div class="drawer" id="drawer">
+            <!-- Botão do menu, chama a função toggleDrawer ao ser clicado -->
+            <button class="menu-button" onclick="toggleDrawer()">☰ Menu</button>
+            <!-- Links do menu -->
+            <a href="#"><img src="imagem/ic_home.png" alt="Home Icon">Home</a>
+            <a href="#"><img src="imagem/ic_carne.png" alt="Carne Icon">Carne</a>
+            <a href="#"><img src="imagem/ic_vegana.png" alt="Vegano Icon">Vegano</a>
+            <a href="#"><img src="imagem/ic_peixe.png" alt="Peixes Icon">Peixes</a>
+            <a href="#"><img src="imagem/ic_salada.png" alt="Saladas Icon">Saladas</a>
+            <a href="#"><img src="imagem/ic_bolinho.png" alt="Sobremesas Icon">Sobremesas</a>
+            <a href="#"><img src="imagem/ic_sobre.png" alt="Sobre Icon">Sobre</a>
+            <a href="#"><img src="imagem/ic_contato.png" alt="Contato Icon">Contato</a>
+            <a href="#"><img src="imagem/ic_receita.png" alt="Receitas Icon">Receitas</a>
+        </div>
+
+        <script>
+            function toggleDrawer() {
+                const drawer = document.getElementById('drawer');
+                console.log('Estado atual do drawer:', drawer.style.left);
+
+                if (drawer.style.left === '0px') {
+                    drawer.style.left = '-250px';
+                    console.log('Menu fechado');
+                } else {
+                    drawer.style.left = '0px';
+                    console.log('Menu aberto');
+                }
+            }
+        </script>
+
+        <!-- Conteúdo principal da página -->
+        <div class="content">
+            <h2>Lista de Receitas</h2>
+            <ul>
+                <!-- Lista de receitas de exemplo -->
+                <li>Pizza Caseira</li>
+                <li>Bolo de Chocolate</li>
+                <li>Lasanha</li>
+                <li>Salada Caesar</li>
+                <li>Frango ao Curry</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
